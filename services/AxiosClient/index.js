@@ -3,24 +3,8 @@ import CONFIG from "./config";
 
 /* ----GLOBAL-FUNCTION-TO-PROCESS-REQUEST------------------------------------------------------ */
 
-function requestProcess(input) {
-  const config = this;
-  const output = input;
-
-  if (config.baseURL) {
-    output.baseURL = config.baseURL;
-  }
-
-  /*
-   *
-   * MAGIC
-   *
-   */
-  return output;
-}
-
 const requestMiddleware = (customConfig, requestAttrs) => {
-  const useConfig = { ...CONFIG, requestProcess, ...customConfig };
+  const useConfig = { ...CONFIG, ...customConfig };
 
   if (!useConfig.requestProcess) {
     return requestAttrs;
@@ -31,18 +15,32 @@ const requestMiddleware = (customConfig, requestAttrs) => {
 
 /* -----REST-FUNCTIONS--------------------------------------------------------------- */
 
-function get(config, url, params, options = {}) {
+export function get(config, url, params, options = {}) {
   return axios.request({
     method: "GET",
     ...requestMiddleware(config, { url, params, ...options }),
   });
 }
 
-const post = (config, url, data, options = {}) => {
+export function post(config, url, data, options = {}){
   return axios.request({
     method: "POST",
     ...requestMiddleware(config, { url, data, ...options }),
   });
 };
 
-export { get, post, requestProcess };
+export function put(config, url, data, options = {}){
+  return axios.request({
+    method: "PUT",
+    ...requestMiddleware(config, { url, data, ...options }),
+  });
+};
+
+export function delete(config, url, data, options = {}){
+  return axios.request({
+    method: "DELETE",
+    ...requestMiddleware(config, { url, data, ...options }),
+  });
+};
+
+export default { get, post, put, delete, requestProcess };
