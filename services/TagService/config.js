@@ -10,5 +10,5 @@ export default {
   baseURL: "",
   basePath: "/api",
   version: "v2",
-  requestMiddleware: pipe(requestProcess, replaceIds),
+  requestProcess: pipe(requestProcess, replaceIds),
 };
