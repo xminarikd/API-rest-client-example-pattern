@@ -1,4 +1,7 @@
 import "./styles.css";
+import EntityService from "../services/EntityService";
+import EntityConfig from "../services/EntityService/config";
+import { retrieve as TagsRetrieve } from "../services/TagService";
 
 document.getElementById("app").innerHTML = `
 <h1>Hello Vanilla!</h1>
@@ -8,3 +11,15 @@ document.getElementById("app").innerHTML = `
   <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
 </div>
 `;
+
+function updateConfigOfEntityService() {
+  EntityConfig.baseURL = "/test";
+}
+
+function fetchEntity() {
+  EntityService.retrieve();
+}
+
+function fetchTags() {
+  TagsRetrieve();
+}
