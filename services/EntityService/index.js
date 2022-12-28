@@ -1,4 +1,4 @@
-import { paramsSerializer } from "@/api/helper";
+import { paramsSerializer } from "../helper";
 import { routes } from "../Routes";
 import { get, post } from "../AxiosClient";
 import CONFIG from "./config";
@@ -9,7 +9,6 @@ export function retrieve(params = {}) {
   );
 }
 
-// getEntityCount ....
 export function count(params) {
   return get(CONFIG, `${routes.provideRoute}/count`, params, {
     paramsSerializer,
